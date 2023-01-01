@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 authors = [
-  {name = "jupyter_lab_kubernetes", email = "kuchelmeister.david@gmail.com"},
+  {name = "david kuchelmeister", email = "kuchelmeister.david@gmail.com"},
 ]
 
 dependencies = [

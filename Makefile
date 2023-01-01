@@ -64,3 +64,6 @@ docker_package:
 docker_hub_push: docker_package
 	docker tag jupyter_lab_kubernetes:$(PACKAGE_VERSION_CLEAN) kuchedav/jupyter_lab_kubernetes:$(PACKAGE_VERSION_CLEAN)
 	docker push kuchedav/jupyter_lab_kubernetes:$(PACKAGE_VERSION_CLEAN)
+
+helm:
+	helm install ./helm
