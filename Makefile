@@ -17,7 +17,7 @@ globals:
 	@echo 'PACKAGE_VERSION: ' $(PACKAGE_VERSION)
 	@echo 'PACKAGE_VERSION_CLEAN: ' $(PACKAGE_VERSION_CLEAN)
 
-functions:
+commands:
 	@echo '=============================================='
 	@echo '=    displaying all functions available      ='
 	@echo '=============================================='
@@ -65,5 +65,6 @@ docker_hub_push: docker_package
 	docker tag jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN) kuchedav/jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
 	docker push kuchedav/jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
-helm:
+helm: docker_hub_push
+	helm lint ./helm/
 	helm install -name jupyter-lab-kubernetes ./helm
