@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+authors = [
+  {name = "jupyter_lab_kubernetes", email = "kuchelmeister.david@gmail.com"},
+]
+
+dependencies = [
+  "pandas >= 1.4.0",
+]
+dynamic = ["version"]
+name = "jupyter_lab_kubernetes"
+readme = "README.md"
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = [
+  "sklearn>=1.21.0"
+]
+
+[tool.coverage.run]
+source_pkgs = [
+  "jupyter_lab_kubernetes",
+]
+
+[tool.mypy]
+files = "src/jupyter_lab_kubernetes"
+ignore_missing_imports = true
+python_version = "3.8"
+
+[tool.pytest.ini_options]
+testpaths = [
+  "tests",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools_scm]
+write_to = "src/jupyter_lab_kubernetes/_version.py"
+version_scheme = "python-simplified-semver"
