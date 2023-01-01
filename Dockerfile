@@ -1,7 +1,7 @@
 FROM python:3.8
 
 WORKDIR /home
-COPY . .
+COPY src/jupyter_lab_kubernetes/. .
 
 RUN pip install -r requirements.txt
 CMD [ "jupyter", "notebook", "--generate-config"]

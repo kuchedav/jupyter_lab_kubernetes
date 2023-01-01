@@ -5,6 +5,7 @@
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 PROJECT_NAME = test
 PYTHON_INTERPRETER = $(PROJECT_DIR)/env/bin/python
+PACKAGE_VERSION_CLEAN = $(shell python -m setuptools_scm --strip-dev)
 
 globals:
 	@echo '=============================================='
@@ -13,6 +14,8 @@ globals:
 	@echo 'PROJECT_DIR: ' $(PROJECT_DIR)
 	@echo 'PROJECT_NAME: ' $(PROJECT_NAME)
 	@echo 'PYTHON_INTERPRETER: ' $(PYTHON_INTERPRETER)
+	@echo 'PACKAGE_VERSION: ' $(PACKAGE_VERSION)
+	@echo 'PACKAGE_VERSION_CLEAN: ' $(PACKAGE_VERSION_CLEAN)
 
 functions:
 	@echo '=============================================='
@@ -21,6 +24,9 @@ functions:
 	@echo 'test: run tox to fully test package'
 	@echo 'publish: publish package to pypi_test server'
 	@echo 'publish_prod: publish package to pypi server'
+	@echo 'docker_package: docker build the Dockerfile to create the image'
+	@echo 'docker_hub_push: push docker image to docker hub'
+	@echo '		Make sure to be loged into docker with an access token'
 
 #################################################################################
 # COMMANDS                                                                      #
@@ -51,3 +57,10 @@ publish_prod: check_credentials_exist test
 
 test:
 	tox
+
+docker_package:
+	docker build . -t jupyter_lab_kubernetes:$(PACKAGE_VERSION_CLEAN)
+
+docker_hub_push: docker_package
+	docker tag jupyter_lab_kubernetes:$(PACKAGE_VERSION_CLEAN) kuchedav/jupyter_lab_kubernetes:$(PACKAGE_VERSION_CLEAN)
+	docker push kuchedav/jupyter_lab_kubernetes:$(PACKAGE_VERSION_CLEAN)
