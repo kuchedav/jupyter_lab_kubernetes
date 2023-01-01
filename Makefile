@@ -59,11 +59,11 @@ test:
 	tox
 
 docker_package:
-	docker build . -t jupyter_lab_kubernetes:$(PACKAGE_VERSION_CLEAN)
+	docker build . -t jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
 docker_hub_push: docker_package
-	docker tag jupyter_lab_kubernetes:$(PACKAGE_VERSION_CLEAN) kuchedav/jupyter_lab_kubernetes:$(PACKAGE_VERSION_CLEAN)
-	docker push kuchedav/jupyter_lab_kubernetes:$(PACKAGE_VERSION_CLEAN)
+	docker tag jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN) kuchedav/jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
+	docker push kuchedav/jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
 helm:
-	helm install ./helm
+	helm install -name jupyter-lab-kubernetes ./helm
