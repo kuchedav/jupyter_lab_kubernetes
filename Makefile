@@ -67,4 +67,4 @@ docker_hub_push: docker_package
 
 helm: docker_hub_push
 	helm lint ./helm/
-	helm install -name jupyter-lab-kubernetes ./helm
+	helm install jupyter-lab-kubernetes ./helm
