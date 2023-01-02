@@ -385,7 +385,7 @@ c.NotebookApp.open_browser = False
 c.NotebookApp.port = 5000
 
 ## The number of additional ports to try if the specified port is not available
-#  (env: JUPYTER_PORT_RETRIES).
+#  (env: JUPYTER_PORT_RETRIES)...
 #  Default: 50
 # c.NotebookApp.port_retries = 50
 
