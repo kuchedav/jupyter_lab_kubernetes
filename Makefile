@@ -58,6 +58,11 @@ publish_prod: check_credentials_exist test
 test:
 	tox
 
+git:
+	git add .
+	git commit -m "debug"
+	git push origin main
+
 docker_package:
 	@echo '==========================================================================='
 	@echo 'MAKE SURE TO RUN ONLY ON A CLEAN GIT BRANCH'

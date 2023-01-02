@@ -1,4 +1,4 @@
 apiVersion: v2
 name: jupyter-lab-kubernetes
-version: 0.0.0-template
+version: 0.2.2
 kubeVersion: ">= 1.18.0-0"
