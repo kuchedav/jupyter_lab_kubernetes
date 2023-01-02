@@ -67,13 +67,15 @@ docker_package:
 	@echo '==========================================================================='
 	@echo 'MAKE SURE TO RUN ONLY ON A CLEAN GIT BRANCH'
 	@echo '==========================================================================='
-	docker build . -t jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
+	docker build . -t kuchedav/jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
 docker_hub_push: docker_package
-	docker tag jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN) kuchedav/jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
 	docker push kuchedav/jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
-helm: docker_hub_push
+docker_clean:
+	docker rmi kuchedav/jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
+
+helm: docker_hub_push docker_clean
 	sed -i "" "/^\([[:space:]]*version: \).*/s//\1$(PACKAGE_VERSION_CLEAN)/" helm/Chart.yaml
 	helm lint ./helm/
 	helm uninstall jupyter-lab-kubernetes
