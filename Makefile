@@ -65,10 +65,20 @@ git_clean:
 		git push origin deployment; \
 	else \
 		echo Working directory is dirty >&2; \
+		exit 0 \
 	fi
 
+test: git_clean
+	@echo "hello"
+
 docker_package:
-	docker build . -t jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
+	@status=$$(git status --porcelain); \
+	if test "x$${status}" = x; then \
+		docker build . -t jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN) \
+	else \
+		echo Working directory is dirty >&2; \
+		exit \
+	fi
 
 docker_hub_push: docker_package
 	docker tag jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN) kuchedav/jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
