@@ -14,7 +14,6 @@ globals:
 	@echo 'PROJECT_DIR: ' $(PROJECT_DIR)
 	@echo 'PROJECT_NAME: ' $(PROJECT_NAME)
 	@echo 'PYTHON_INTERPRETER: ' $(PYTHON_INTERPRETER)
-	@echo 'PACKAGE_VERSION: ' $(PACKAGE_VERSION)
 	@echo 'PACKAGE_VERSION_CLEAN: ' $(PACKAGE_VERSION_CLEAN)
 
 commands:
@@ -27,6 +26,8 @@ commands:
 	@echo 'docker_package: docker build the Dockerfile to create the image'
 	@echo 'docker_hub_push: push docker image to docker hub'
 	@echo '		Make sure to be loged into docker with an access token'
+	@echo 'helm: build docker package, upload to docker hub, delete local image...'
+	@echo '		...delete current helm install and install new helm chart'
 
 #################################################################################
 # COMMANDS                                                                      #
