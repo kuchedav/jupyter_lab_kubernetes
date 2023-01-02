@@ -58,6 +58,15 @@ publish_prod: check_credentials_exist test
 test:
 	tox
 
+git_clean:
+	@status=$$(git status --porcelain); \
+	if test "x$${status}" = x; then \
+		git branch -f deployment; \
+		git push origin deployment; \
+	else \
+		echo Working directory is dirty >&2; \
+	fi
+
 docker_package:
 	docker build . -t jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
