@@ -58,27 +58,8 @@ publish_prod: check_credentials_exist test
 test:
 	tox
 
-git_clean:
-	@status=$$(git status --porcelain); \
-	if test "x$${status}" = x; then \
-		git branch -f deployment; \
-		git push origin deployment; \
-	else \
-		echo Working directory is dirty >&2; \
-		exit 0 \
-	fi
-
-test: git_clean
-	@echo "hello"
-
 docker_package:
-	@status=$$(git status --porcelain); \
-	if test "x$${status}" = x; then \
-		docker build . -t jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN) \
-	else \
-		echo Working directory is dirty >&2; \
-		exit \
-	fi
+	docker build . -t jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
 docker_hub_push: docker_package
 	docker tag jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN) kuchedav/jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
