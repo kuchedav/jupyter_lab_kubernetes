@@ -69,9 +69,7 @@ docker_hub_push: docker_package
 	docker push kuchedav/jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
 helm: docker_hub_push
-	@echo '==========================================================================='
-	@echo 'MAEK SURE TO UPDATE THE DEPLOYMENT FILE WITH THE CORRECT PACKAGE VERSION'
-	@echo '==========================================================================='
+	sed -i "" "/^\([[:space:]]*version: \).*/s//\1$(PACKAGE_VERSION_CLEAN)/" helm/Chart.yaml
 	helm lint ./helm/
 	helm uninstall jupyter-lab-kubernetes
 	helm install jupyter-lab-kubernetes ./helm
