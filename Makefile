@@ -59,6 +59,9 @@ test:
 	tox
 
 docker_package:
+	@echo '==========================================================================='
+	@echo 'MAKE SURE TO RUN ONLY ON A CLEAN GIT BRANCH'
+	@echo '==========================================================================='
 	docker build . -t jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
 docker_hub_push: docker_package
@@ -66,6 +69,9 @@ docker_hub_push: docker_package
 	docker push kuchedav/jupyter-lab-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
 helm: docker_hub_push
+	@echo '==========================================================================='
+	@echo 'MAEK SURE TO UPDATE THE DEPLOYMENT FILE WITH THE CORRECT PACKAGE VERSION'
+	@echo '==========================================================================='
 	helm lint ./helm/
 	helm uninstall jupyter-lab-kubernetes
 	helm install jupyter-lab-kubernetes ./helm
